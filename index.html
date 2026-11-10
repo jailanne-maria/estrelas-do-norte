@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#040814">
+  <meta name="description" content="Estrelas do Norte: um barco pelo rio Acre em uma noite estrelada. Cada estrela é um artista do Norte do Brasil.">
+  <title>Estrelas do N✦RTE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap">
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+  <main id="palco" class="palco">
+    <canvas id="cena" aria-hidden="true"></canvas>
+    <div class="vinheta" aria-hidden="true"></div>
+    <div class="graos" aria-hidden="true"></div>
+
+    <p class="sr-only">
+      Cena interativa de um barco no rio Acre sob uma noite estrelada. Cada estrela representa um artista do Norte.
+      Use o botão Constelação para acessar a lista de artistas e o botão Indicar artista para sugerir alguém.
+    </p>
+
+    <header class="barra-topo">
+      <a class="marca" href="#" aria-label="Estrelas do Norte, início">
+        <span class="marca-nome"><span class="marca-longo">ESTRELAS&nbsp;DO&nbsp;</span>N<svg class="estrela-o" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><path d="M5 0 6.1 3.9 10 5 6.1 6.1 5 10 3.9 6.1 0 5 3.9 3.9Z" fill="currentColor"/></svg>RTE</span>
+      </a>
+      <nav class="acoes-topo" aria-label="Ações principais">
+        <button class="botao-pixel" id="btn-constelacao" type="button"><span class="rotulo-longo">Constelação</span><span class="rotulo-curto">Céu</span></button>
+        <button class="botao-pixel botao-destaque" id="btn-indicar" type="button"><span class="rotulo-longo">Sugestões</span><span class="rotulo-curto">Sugerir</span></button>
+        <button class="botao-pixel botao-icone" id="btn-som" type="button" aria-label="Ligar som do rio" aria-pressed="false">SOM</button>
+      </nav>
+    </header>
+
+    <div class="dica-remar" id="dica-remar" hidden>
+      <span class="dica-icone" aria-hidden="true">←→</span>
+      Arraste para remar
+    </div>
+
+    <div class="rio-label" aria-hidden="true">
+      <span class="rio-linha"></span>
+      <span>RIO ACRE · ACRE · BRASIL</span>
+    </div>
+
+    <div class="tooltip-estrela" id="tooltip-estrela" role="status" hidden>
+      <strong id="tooltip-nome"></strong>
+      <span id="tooltip-info"></span>
+    </div>
+
+    <section class="intro" id="intro" aria-labelledby="intro-titulo">
+      <div class="intro-conteudo">
+        <p class="intro-selo">Uma travessia pelo rio Acre</p>
+        <h1 class="intro-logo" id="intro-titulo" aria-label="Estrelas do Norte">
+          <span class="intro-linha">ESTRELAS</span>
+          <span class="intro-linha">DO N<svg class="estrela-o" viewBox="0 0 10 10" aria-hidden="true" focusable="false"><path d="M5 0 6.1 3.9 10 5 6.1 6.1 5 10 3.9 6.1 0 5 3.9 3.9Z" fill="currentColor"/></svg>RTE</span>
+        </h1>
+        <p class="intro-texto">
+          Entre no barco e admire a noite. Cada estrela acesa é um artista do Norte
+          do Brasil. Toque nela para conhecer o nome, a trajetória e as obras.
+        </p>
+        <button class="botao-pixel botao-destaque intro-botao" id="btn-entrar" type="button">Entrar no barco</button>
+        <p class="intro-dica">Arraste para remar · setas do teclado também funcionam</p>
+
+        <div class="estudantes" aria-label="Estudantes convidando você a embarcar">
+          <p class="estudantes-titulo">A turma convida você a embarcar</p>
+          <div class="estudantes-linha">
+            <button class="estudante" type="button" data-entrar-barco aria-label="Entrar no barco com a turma">
+              <span class="fala">Vem ver as estrelas!</span>
+              <span class="avatar-estudante" aria-hidden="true">
+                <svg viewBox="0 0 24 24" shape-rendering="crispEdges">
+                  <rect x="7" y="9" width="10" height="9" fill="#f1c27d"/>
+                  <rect x="6" y="7" width="12" height="3" fill="#fff8e7"/>
+                  <rect x="8" y="4" width="8" height="4" fill="#fff8e7"/>
+                  <rect x="6" y="10" width="2" height="4" fill="#6b3b24"/>
+                  <rect x="16" y="10" width="2" height="4" fill="#6b3b24"/>
+                  <rect x="9" y="12" width="1" height="1" fill="#2b1a12"/>
+                  <rect x="14" y="12" width="1" height="1" fill="#2b1a12"/>
+                  <rect x="11" y="15" width="3" height="1" fill="#8a4a3a"/>
+                  <rect x="5" y="18" width="14" height="6" fill="#ffd21f"/>
+                  <rect x="4" y="19" width="2" height="4" fill="#ffd21f"/>
+                  <rect x="18" y="19" width="2" height="4" fill="#ffd21f"/>
+                </svg>
+              </span>
+            </button>
+
+            <button class="estudante" type="button" data-entrar-barco aria-label="Entrar no barco com a turma">
+              <span class="fala">A noite está linda!</span>
+              <span class="avatar-estudante" aria-hidden="true">
+                <svg viewBox="0 0 24 24" shape-rendering="crispEdges">
+                  <rect x="7" y="9" width="10" height="9" fill="#c68642"/>
+                  <rect x="5" y="7" width="14" height="4" fill="#3a2418"/>
+                  <rect x="4" y="10" width="3" height="9" fill="#3a2418"/>
+                  <rect x="17" y="10" width="3" height="9" fill="#3a2418"/>
+                  <rect x="9" y="12" width="1" height="1" fill="#2b1a12"/>
+                  <rect x="14" y="12" width="1" height="1" fill="#2b1a12"/>
+                  <rect x="11" y="15" width="3" height="1" fill="#8a4a3a"/>
+                  <rect x="8" y="14" width="1" height="1" fill="#e77a8a"/>
+                  <rect x="15" y="14" width="1" height="1" fill="#e77a8a"/>
+                  <rect x="5" y="18" width="14" height="6" fill="#ff8bb3"/>
+                  <rect x="4" y="19" width="2" height="4" fill="#ff8bb3"/>
+                  <rect x="18" y="19" width="2" height="4" fill="#ff8bb3"/>
+                </svg>
+              </span>
+            </button>
+
+            <button class="estudante" type="button" data-entrar-barco aria-label="Entrar no barco com a turma">
+              <span class="fala">Bora embarcar?</span>
+              <span class="avatar-estudante" aria-hidden="true">
+                <svg viewBox="0 0 24 24" shape-rendering="crispEdges">
+                  <rect x="7" y="9" width="10" height="9" fill="#8d5524"/>
+                  <rect x="6" y="6" width="12" height="4" fill="#1b1b1b"/>
+                  <rect x="7" y="4" width="10" height="3" fill="#1f8a4c"/>
+                  <rect x="6" y="7" width="12" height="1" fill="#1f8a4c"/>
+                  <rect x="9" y="12" width="1" height="1" fill="#2b1a12"/>
+                  <rect x="14" y="12" width="1" height="1" fill="#2b1a12"/>
+                  <rect x="11" y="15" width="3" height="1" fill="#5a2e1f"/>
+                  <rect x="5" y="18" width="14" height="6" fill="#7fe0c4"/>
+                  <rect x="4" y="19" width="2" height="4" fill="#7fe0c4"/>
+                  <rect x="18" y="19" width="2" height="4" fill="#7fe0c4"/>
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="painel-artista" id="painel-artista" role="dialog" aria-modal="false" aria-labelledby="artista-nome" hidden>
+      <button class="fechar" type="button" data-fechar-painel aria-label="Fechar painel do artista">×</button>
+
+      <div class="artista-cabecalho">
+        <div class="artista-foto-moldura">
+          <img id="artista-foto" alt="" hidden>
+          <div class="foto-placeholder" id="artista-foto-placeholder" aria-hidden="true">
+            <span class="foto-iniciais" id="artista-iniciais"></span>
+            <span class="foto-estrela">✦</span>
+          </div>
+        </div>
+        <div class="artista-identidade">
+          <div class="artista-etiquetas">
+            <span class="etiqueta" id="artista-area"></span>
+            <span class="etiqueta etiqueta-demo" id="artista-demo" hidden>exemplo</span>
+          </div>
+          <h2 class="artista-nome" id="artista-nome"></h2>
+          <p class="artista-local" id="artista-local"></p>
+          <div class="artista-links" id="artista-links"></div>
+        </div>
+      </div>
+
+      <div class="artista-bio">
+        <p id="artista-bio"></p>
+      </div>
+
+      <p class="artista-curadoria" id="artista-curadoria" hidden></p>
+
+      <h3 class="titulo-secao">Obras</h3>
+      <div class="grade-obras" id="artista-obras"></div>
+
+      <div class="artista-navegacao">
+        <button class="botao-mini" id="artista-anterior" type="button">← anterior</button>
+        <span class="artista-contador" id="artista-contador"></span>
+        <button class="botao-mini" id="artista-proximo" type="button">próxima →</button>
+      </div>
+    </aside>
+
+    <aside class="drawer" id="drawer-constelacao" role="dialog" aria-modal="false" aria-labelledby="drawer-titulo" hidden>
+      <header class="drawer-cabecalho">
+        <h2 id="drawer-titulo">Constelação</h2>
+        <button class="fechar" type="button" data-fechar-drawer aria-label="Fechar constelação">×</button>
+      </header>
+      <p class="drawer-sub">Todas as estrelas confirmadas até agora. Toque em uma para navegar até ela.</p>
+      <label class="campo-busca-rotulo" for="busca-artista">Buscar</label>
+      <input class="campo-busca" id="busca-artista" type="search" placeholder="nome, cidade ou linguagem" autocomplete="off">
+      <label class="switch">
+        <input type="checkbox" id="mostrar-nomes">
+        <span>Mostrar nomes no céu</span>
+      </label>
+      <ul class="lista-artistas" id="lista-artistas"></ul>
+      <button class="botao-pixel botao-destaque botao-largo" id="btn-indicar-2" type="button">Indicar uma estrela</button>
+    </aside>
+
+    <aside class="drawer" id="drawer-sugestoes" role="dialog" aria-modal="false" aria-labelledby="sugestoes-titulo" hidden>
+      <header class="drawer-cabecalho">
+        <h2 id="sugestoes-titulo">Sugestões</h2>
+        <button class="fechar" type="button" data-fechar-sugestoes aria-label="Fechar sugestões">×</button>
+      </header>
+      <p class="drawer-sub">
+        A curadoria recebe indicações do público. Toda sugestão é analisada antes de virar estrela no céu do Norte.
+      </p>
+      <div class="sugestoes-passos">
+        <p><strong>1.</strong> Conte quem deveria brilhar no céu do Norte.</p>
+        <p><strong>2.</strong> A equipe de curadoria analisa a indicação.</p>
+        <p><strong>3.</strong> Se aprovada, a estrela entra na constelação.</p>
+      </div>
+      <button class="botao-pixel botao-destaque botao-largo" id="btn-indicar-3" type="button">Indicar uma estrela</button>
+      <p class="sugestoes-nota">
+        A indicação é voluntária e será analisada com carinho. Obrigada por ajudar a ampliar o mapa.
+      </p>
+    </aside>
+
+    <div class="modal" id="modal-indicacao" role="dialog" aria-modal="true" aria-labelledby="indicacao-titulo" hidden>
+      <div class="modal-caixa">
+        <button class="fechar" type="button" data-fechar-modal aria-label="Fechar formulário">×</button>
+        <h2 id="indicacao-titulo">Indicar uma estrela</h2>
+        <p class="modal-sub">
+          Conte quem deveria brilhar aqui. Toda indicação passa por curadoria antes de entrar no céu.
+        </p>
+
+        <form class="form" id="form-indicacao" novalidate>
+          <label class="campo">
+            <span>Nome do artista *</span>
+            <input name="nome" type="text" maxlength="120" required autocomplete="off">
+          </label>
+
+          <div class="linha-campos">
+            <label class="campo">
+              <span>Cidade / estado *</span>
+              <input name="local" type="text" maxlength="120" required autocomplete="off" placeholder="Rio Branco — AC">
+            </label>
+            <label class="campo">
+              <span>Linguagem *</span>
+              <select name="area" required>
+                <option value="">Selecione</option>
+                <option>Artes visuais</option>
+                <option>Música</option>
+                <option>Literatura</option>
+                <option>Dança</option>
+                <option>Teatro</option>
+                <option>Audiovisual</option>
+                <option>Fotografia</option>
+                <option>Artesanato</option>
+                <option>Performance</option>
+                <option>Circo</option>
+                <option>Grafite</option>
+                <option>Televisão</option>
+                <option>Arte-educação</option>
+                <option>Criação de conteúdo</option>
+                <option>Humor</option>
+                <option>Esporte</option>
+                <option>Moda</option>
+                <option>Beleza</option>
+                <option>Turismo</option>
+                <option>Rock</option>
+                <option>Lifestyle</option>
+                <option>Quadrinhos</option>
+                <option>Outra</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="campo">
+            <span>Link do artista</span>
+            <input name="link" type="url" maxlength="300" placeholder="Instagram, portfólio, canal..." autocomplete="off">
+          </label>
+
+          <label class="campo">
+            <span>Por que essa pessoa merece brilhar? *</span>
+            <textarea name="motivo" maxlength="1200" required placeholder="Conte um pouco da trajetória, das obras e da relação com o Norte."></textarea>
+          </label>
+
+          <div class="linha-campos">
+            <label class="campo">
+              <span>Seu nome</span>
+              <input name="indicador" type="text" maxlength="120" autocomplete="name">
+            </label>
+            <label class="campo">
+              <span>Seu contato</span>
+              <input name="contato" type="text" maxlength="160" placeholder="e-mail ou telefone" autocomplete="email">
+            </label>
+          </div>
+
+          <label class="consentimento">
+            <input name="consentimento" type="checkbox" required>
+            <span>Autorizo a curadoria a analisar esta indicação e, se aprovada, publicar o nome e as informações do artista no app.</span>
+          </label>
+
+          <div class="honeypot" aria-hidden="true">
+            <label>Não preencha este campo <input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+          </div>
+
+          <button class="botao-pixel botao-destaque botao-enviar" id="btn-enviar-indicacao" type="submit">Enviar indicação</button>
+          <p class="form-status" id="form-status" role="alert"></p>
+        </form>
+
+        <div class="indicacao-sucesso" id="indicacao-sucesso" hidden>
+          <div class="sucesso-estrela" aria-hidden="true">✦</div>
+          <h3>Indicação guardada</h3>
+          <p>A curadoria vai analisar com carinho. Obrigada por acender mais uma estrela no céu do Norte.</p>
+          <p class="nota-local" id="nota-local" hidden>Modo demonstração: a indicação ficou salva apenas neste navegador. Em produção, o envio será conectado à curadoria.</p>
+          <div class="sucesso-acoes">
+            <button class="botao-pixel" id="btn-indicar-outra" type="button">Indicar outra</button>
+            <button class="botao-pixel botao-destaque" id="btn-fechar-sucesso" type="button">Voltar ao rio</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-titulo" hidden>
+      <div class="lightbox-conteudo">
+        <button class="fechar" type="button" data-fechar-lightbox aria-label="Fechar obra">×</button>
+        <div class="lightbox-imagem" id="lightbox-imagem"></div>
+        <div class="lightbox-info">
+          <h3 id="lightbox-titulo"></h3>
+          <p id="lightbox-meta"></p>
+          <p id="lightbox-descricao"></p>
+        </div>
+      </div>
+    </div>
+
+    <section class="curadoria" id="curadoria" aria-labelledby="curadoria-titulo" hidden>
+      <header class="drawer-cabecalho">
+        <h2 id="curadoria-titulo">Curadoria · prévia local</h2>
+        <button class="fechar" type="button" id="btn-fechar-curadoria" aria-label="Fechar curadoria">×</button>
+      </header>
+      <p class="drawer-sub">Indicações salvas neste navegador. Aprove, copie como item de <code>artistas.js</code> ou exporte.</p>
+      <div class="curadoria-acoes">
+        <button class="botao-mini" id="btn-exportar-indicacoes" type="button">Exportar JSON</button>
+        <button class="botao-mini" id="btn-limpar-indicacoes" type="button">Limpar tudo</button>
+      </div>
+      <ul class="lista-curadoria" id="lista-curadoria"></ul>
+    </section>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!-- Formulário espelho para o Netlify Forms (não aparece no site). -->
+    <form name="indicacoes" method="POST" data-netlify="true" netlify-honeypot="website" hidden>
+      <input type="hidden" name="form-name" value="indicacoes">
+      <input type="text" name="nome">
+      <input type="text" name="local">
+      <input type="text" name="area">
+      <input type="text" name="link">
+      <textarea name="motivo"></textarea>
+      <input type="text" name="indicador">
+      <input type="text" name="contato">
+      <input type="checkbox" name="consentimento">
+      <input type="text" name="website">
+      <input type="text" name="origem">
+    </form>
+  </main>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/artistas.js"></script>
+  <script src="js/indicacoes.js"></script>
+  <script src="js/cena.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

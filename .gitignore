@@ -1,0 +1,22 @@
+# Segredos e configurações locais
+.env
+.env.*
+config.local.php
+*.local.js
+*.local.json
+
+# Dados de sugestões — nunca versionar
+submissions.json
+indicacoes.json
+dados/
+backups/
+
+# Logs, Firebase CLI e arquivos de sistema
+*.log
+.firebase/
+firebase-debug.log
+.DS_Store
+Thumbs.db
+
+# Dependências (se um dia usar Node)
+node_modules/
