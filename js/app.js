@@ -50,6 +50,7 @@
     drawerSugestoes: document.getElementById('drawer-sugestoes'),
     busca: document.getElementById('busca-artista'),
     mostrarNomes: document.getElementById('mostrar-nomes'),
+    mostrarLendas: document.getElementById('mostrar-lendas'),
     lista: document.getElementById('lista-artistas'),
 
     modal: document.getElementById('modal-indicacao'),
@@ -1018,6 +1019,12 @@
   if (el.mostrarNomes) {
     el.mostrarNomes.addEventListener('change', function () {
       if (window.Cena) window.Cena.definirMostrarNomes(el.mostrarNomes.checked);
+    });
+  }
+
+  if (el.mostrarLendas) {
+    el.mostrarLendas.addEventListener('change', function () {
+      if (window.Cena) window.Cena.definirMostrarLendas(el.mostrarLendas.checked);
     });
   }
 

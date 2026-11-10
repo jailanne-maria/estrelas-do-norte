@@ -17,6 +17,7 @@
 
   const P_CEU = 0.1;
   const P_ESTRELA = 0.8;
+  const P_LENDA = 0.35;
   const P_CENARIO = 0.62;
   const P_AGUA = 0.8;
 
@@ -40,6 +41,7 @@
   let hoverId = null;
   let selecionadoId = null;
   let mostrarNomes = false;
+  let mostrarLendas = true;
   let reduzido = false;
 
   let texturaCeu = null;
@@ -121,6 +123,141 @@
     const b = n & 255;
     return 'rgba(' + r + ',' + g + ',' + b + ',' + alfa + ')';
   }
+
+  /* Constelações das lendas amazônicas — desenhos de fundo, bem discretos.
+     Cada ponto é normalizado (0–1) dentro da caixa da constelação. */
+  const LENDAS = [
+    {
+      nome: 'Cuca',
+      s: 0.08,
+      y: 0.26,
+      escala: 1,
+      fase: 0.4,
+      pontos: [
+        [0.5, 0.02], [0.18, 0.3], [0.82, 0.3], [0.34, 0.4], [0.6, 0.36],
+        [0.82, 0.46], [0.92, 0.52], [0.74, 0.6], [0.48, 0.62], [0.4, 0.76],
+        [0.22, 0.88], [0.68, 0.88], [0.2, 0.54], [0.66, 0.42],
+      ],
+      conexoes: [
+        [0, 1], [1, 3], [3, 12], [12, 10], [10, 9], [9, 8], [8, 7],
+        [7, 6], [6, 5], [5, 4], [4, 2], [2, 0], [3, 4], [4, 13],
+        [13, 5], [8, 11], [11, 9],
+      ],
+    },
+    {
+      nome: 'Curupira',
+      s: 0.2,
+      y: 0.58,
+      escala: 0.9,
+      fase: 1.2,
+      pontos: [
+        [0.28, 0.24], [0.38, 0.08], [0.46, 0.2], [0.54, 0.05], [0.6, 0.2],
+        [0.7, 0.1], [0.74, 0.26], [0.52, 0.32], [0.58, 0.36], [0.64, 0.37],
+        [0.52, 0.42], [0.52, 0.64], [0.34, 0.52], [0.7, 0.52], [0.46, 0.68],
+        [0.58, 0.68], [0.3, 0.8], [0.42, 0.84],
+      ],
+      conexoes: [
+        [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [0, 7],
+        [7, 10], [10, 11], [10, 12], [10, 13], [11, 14], [11, 15],
+        [14, 16], [15, 17], [7, 8], [8, 9],
+      ],
+    },
+    {
+      nome: 'Matinta Perera',
+      s: 0.3,
+      y: 0.5,
+      escala: 1,
+      fase: 2.1,
+      pontos: [
+        [0.46, 0.2], [0.62, 0.28], [0.46, 0.32], [0.45, 0.38], [0.42, 0.64],
+        [0.14, 0.56], [0.3, 0.48], [0.74, 0.5], [0.55, 0.46], [0.3, 0.84],
+        [0.42, 0.72], [0.56, 0.86], [0.32, 0.42], [0.6, 0.44], [0.43, 0.12],
+        [0.56, 0.18], [0.51, 0.25],
+      ],
+      conexoes: [
+        [0, 1], [1, 2], [2, 3], [3, 4], [4, 10], [10, 9], [10, 11],
+        [5, 6], [6, 3], [7, 8], [8, 3], [12, 13], [3, 12], [3, 13],
+        [14, 15], [15, 0], [0, 16], [16, 2],
+      ],
+    },
+    {
+      nome: 'Saci',
+      s: 0.44,
+      y: 0.62,
+      escala: 0.95,
+      fase: 2.9,
+      pontos: [
+        [0.5, 0.06], [0.4, 0.18], [0.6, 0.18], [0.44, 0.28], [0.56, 0.28],
+        [0.5, 0.38], [0.58, 0.32], [0.74, 0.26], [0.76, 0.22], [0.5, 0.42],
+        [0.5, 0.64], [0.34, 0.52], [0.66, 0.5], [0.58, 0.86], [0.35, 0.38],
+        [0.2, 0.5], [0.25, 0.65], [0.42, 0.74], [0.62, 0.68], [0.7, 0.52],
+        [0.58, 0.4],
+      ],
+      conexoes: [
+        [0, 1], [0, 2], [1, 3], [2, 4], [3, 4], [4, 5], [5, 6], [6, 7],
+        [7, 8], [5, 9], [9, 10], [9, 11], [9, 12], [10, 13],
+        [14, 15], [15, 16], [16, 17], [17, 18], [18, 19], [19, 20], [20, 14],
+      ],
+    },
+    {
+      nome: 'Mapinguari',
+      s: 0.56,
+      y: 0.3,
+      escala: 1.05,
+      fase: 3.7,
+      pontos: [
+        [0.5, 0.08], [0.28, 0.26], [0.72, 0.26], [0.12, 0.56], [0.86, 0.5],
+        [0.3, 0.7], [0.7, 0.7], [0.28, 0.9], [0.72, 0.9], [0.5, 0.4],
+        [0.4, 0.5], [0.5, 0.6], [0.6, 0.5], [0.5, 0.5], [0.2, 0.42],
+        [0.8, 0.4],
+      ],
+      conexoes: [
+        [0, 1], [0, 2], [1, 3], [2, 4], [1, 14], [14, 3], [2, 15],
+        [15, 4], [1, 5], [2, 6], [5, 6], [5, 7], [6, 8],
+        [9, 10], [10, 11], [11, 12], [12, 9], [9, 13], [10, 13],
+        [11, 13], [12, 13],
+      ],
+    },
+    {
+      nome: 'Iara',
+      s: 0.68,
+      y: 0.48,
+      escala: 1,
+      fase: 4.5,
+      pontos: [
+        [0.5, 0.1], [0.42, 0.2], [0.58, 0.2], [0.5, 0.3], [0.32, 0.22],
+        [0.28, 0.42], [0.68, 0.22], [0.72, 0.42], [0.38, 0.34],
+        [0.62, 0.34], [0.5, 0.5], [0.26, 0.4], [0.74, 0.4], [0.35, 0.62],
+        [0.5, 0.72], [0.68, 0.66], [0.8, 0.8], [0.68, 0.9], [0.58, 0.84],
+        [0.62, 0.76],
+      ],
+      conexoes: [
+        [0, 1], [0, 2], [1, 3], [2, 3], [1, 4], [4, 5], [2, 6], [6, 7],
+        [3, 8], [3, 9], [8, 9], [8, 10], [9, 10], [8, 11], [9, 12],
+        [10, 13], [13, 14], [14, 15], [15, 16], [16, 17], [17, 18],
+        [18, 19], [19, 16],
+      ],
+    },
+    {
+      nome: 'Cobra Grande',
+      s: 0.82,
+      y: 0.66,
+      escala: 1,
+      largura: 1.5,
+      altura: 0.8,
+      fase: 5.3,
+      pontos: [
+        [0.88, 0.14], [0.95, 0.2], [0.88, 0.26], [0.81, 0.2], [0.9, 0.2],
+        [0.99, 0.22], [0.8, 0.3], [0.72, 0.4], [0.62, 0.34], [0.52, 0.44],
+        [0.42, 0.36], [0.32, 0.48], [0.22, 0.42], [0.12, 0.54], [0.04, 0.5],
+      ],
+      conexoes: [
+        [0, 1], [1, 2], [2, 3], [3, 0], [0, 6], [6, 7], [7, 8],
+        [8, 9], [9, 10], [10, 11], [11, 12], [12, 13], [13, 14],
+        [1, 5], [0, 4], [4, 1],
+      ],
+    },
+  ];
 
   function medirTela() {
     const w = window.innerWidth;
@@ -412,6 +549,91 @@
         fase: rand() * TAU,
         vel: 0.5 + rand() * 1.5,
       });
+    }
+  }
+
+  function desenharLendas() {
+    if (!mostrarLendas) return;
+
+    const tamanhoBase = Math.max(46, Math.min(HORIZONTE * 0.22, 86));
+
+    for (let k = 0; k < LENDAS.length; k++) {
+      const lenda = LENDAS[k];
+      const tamanho = tamanhoBase * (lenda.escala || 1);
+      const largura = tamanho * (lenda.largura || 1);
+      const altura = tamanho * (lenda.altura || 1);
+      const x = sxDe(lenda.s, P_LENDA);
+      const y = lenda.y * HORIZONTE;
+
+      if (x < -largura || x > L + largura) continue;
+      if (y < -altura || y > HORIZONTE + altura) continue;
+
+      const x0 = x - largura / 2;
+      const y0 = y - altura / 2;
+
+      ctx.save();
+      ctx.beginPath();
+      for (let i = 0; i < lenda.conexoes.length; i++) {
+        const par = lenda.conexoes[i];
+        const a = lenda.pontos[par[0]];
+        const b = lenda.pontos[par[1]];
+        if (!a || !b) continue;
+        ctx.moveTo(x0 + a[0] * largura, y0 + a[1] * altura);
+        ctx.lineTo(x0 + b[0] * largura, y0 + b[1] * altura);
+      }
+      ctx.strokeStyle = 'rgba(120, 190, 230, 0.14)';
+      ctx.lineWidth = 3;
+      ctx.setLineDash([]);
+      ctx.stroke();
+      ctx.strokeStyle = 'rgba(170, 225, 255, 0.44)';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([2, 3]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      for (let i = 0; i < lenda.pontos.length; i++) {
+        const ponto = lenda.pontos[i];
+        const px = x0 + ponto[0] * largura;
+        const py = y0 + ponto[1] * altura;
+        const brilho = 0.55 + 0.3 * Math.sin(tempo * 1.2 + lenda.fase + i * 0.7);
+        ctx.globalAlpha = Math.max(0.3, brilho);
+        ctx.fillStyle = '#e6f4ff';
+        const r = i % 3 === 0 ? 3 : 2;
+        ctx.fillRect(
+          Math.round(px) - Math.floor(r / 2),
+          Math.round(py) - Math.floor(r / 2),
+          r,
+          r
+        );
+        if (i % 4 === 0) {
+          ctx.globalAlpha *= 0.35;
+          ctx.fillRect(Math.round(px) - 3, Math.round(py), 7, 1);
+          ctx.fillRect(Math.round(px), Math.round(py) - 3, 1, 7);
+        }
+      }
+      ctx.globalAlpha = 1;
+
+      if (x > 6 && x < L - 6) {
+        const fonte = Math.max(7, Math.round(A * 0.02));
+        ctx.font = fonte + 'px "VT323", monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
+        const larguraTexto = ctx.measureText(lenda.nome).width;
+        const alturaTexto = fonte + 3;
+        ctx.fillStyle = 'rgba(4, 8, 20, 0.55)';
+        ctx.fillRect(
+          x - larguraTexto / 2 - 3,
+          y0 + altura + 2,
+          larguraTexto + 6,
+          alturaTexto
+        );
+        ctx.fillStyle = 'rgba(190, 225, 250, 0.8)';
+        ctx.fillText(lenda.nome, x, y0 + altura + 4);
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'alphabetic';
+      }
+
+      ctx.restore();
     }
   }
 
@@ -1273,6 +1495,7 @@
     ctx.fillRect(0, 0, L, A);
 
     desenharCeu();
+    desenharLendas();
     desenharEstrelasDecor();
     desenharConstelacao();
     desenharEstrelasArtistas();
@@ -1404,6 +1627,9 @@
     },
     definirMostrarNomes: function (valor) {
       mostrarNomes = Boolean(valor);
+    },
+    definirMostrarLendas: function (valor) {
+      mostrarLendas = Boolean(valor);
     },
     redimensionar: medirTela,
     posicao: function () {
