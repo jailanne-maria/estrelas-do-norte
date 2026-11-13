@@ -80,27 +80,30 @@ window.corDaArea = function corDaArea(area) {
 
 window.ARTISTAS = [
   {
-    id: 'ana-caylane',
-    nome: 'Ana Caylane',
+    id: 'ana-caillany',
+    nome: 'Ana Caillany',
     local: 'Rio Branco — AC',
     area: 'Artes visuais',
     bio:
-      'Artista visual acreana, também conhecida como Ana Cay. Sua releitura de "A Noite Estrelada", ' +
-      'de Vincent van Gogh, aproximou os redemoinhos do céu da paisagem do rio Acre e inspirou a atmosfera deste app.',
+      'Ana Caillany, também conhecida como Ana Cay, é uma artista visual acreana. Sua releitura de ' +
+      '"A Noite Estrelada", de Vincent van Gogh, aproximou os redemoinhos do céu da paisagem do rio Acre ' +
+      'e inspirou a atmosfera deste app.',
     foto: '',
     links: [
       { rotulo: 'Instagram', url: 'https://www.instagram.com/ilustra_cay/' },
     ],
     obras: [
       {
-        titulo: 'A Noite Estrelada (releitura)',
+        titulo: 'Uma noite estrelada acreana',
         tecnica: 'Pintura',
-        imagem: 'assets/obras/ana-caylane-noite-estrelada.jpg',
+        imagem: 'assets/obras/ana-caillany-uma-noite-estrelada-acreana.jpg',
         descricao:
-          'Releitura da obra de Van Gogh com o céu do Norte, o rio, as casas ribeirinhas e a bandeira do Acre.',
+          'Releitura de "A Noite Estrelada", de Van Gogh, com o céu do Norte, o rio, as casas ribeirinhas e a bandeira do Acre.',
         cores: ['#2e6db4', '#071126'],
       },
     ],
+    destaque: true,
+    ceu: { x: 0.012, y: 0.3 },
     demo: false,
   },
   {
@@ -407,10 +410,11 @@ window.ARTISTAS = [
     area: 'Música',
     bio:
       'Cantora do cenário musical do Norte. A curadoria está completando a biografia e o repertório; ' +
-      'acompanhe seus lançamentos pelo Instagram.',
+      'acompanhe seus lançamentos pelo Instagram e Spotify.',
     foto: '',
     links: [
       { rotulo: 'Instagram', url: 'https://www.instagram.com/gabrieoficial/' },
+      { rotulo: 'Spotify', url: 'https://open.spotify.com/artist/5vEt0FtxIoRLJI4AjXwJyc' },
     ],
     obras: [],
     demo: false,
@@ -422,10 +426,11 @@ window.ARTISTAS = [
     area: 'Música',
     bio:
       'Cantora do cenário musical do Norte. A curadoria está completando a biografia e o repertório; ' +
-      'acompanhe seus lançamentos pelo Instagram.',
+      'acompanhe seus lançamentos pelo Instagram e Spotify.',
     foto: '',
     links: [
       { rotulo: 'Instagram', url: 'https://www.instagram.com/dudamodestto/' },
+      { rotulo: 'Spotify', url: 'https://open.spotify.com/artist/3t08mcSXRurnoVVzDPmr7R' },
     ],
     obras: [],
     demo: false,
@@ -934,10 +939,11 @@ window.ARTISTAS = [
     area: 'Música',
     bio:
       'Cantora paraense. A curadoria está completando a biografia e o repertório; ' +
-      'acompanhe seus lançamentos pelo Instagram.',
+      'acompanhe seus lançamentos pelo Instagram e Spotify.',
     foto: '',
     links: [
       { rotulo: 'Instagram', url: 'https://www.instagram.com/soraidol/' },
+      { rotulo: 'Spotify', url: 'https://open.spotify.com/artist/6XCjwAAkwGc4cf5CivNNrT' },
     ],
     obras: [],
     demo: false,

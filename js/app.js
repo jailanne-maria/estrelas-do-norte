@@ -545,6 +545,9 @@
       if (!termo) return true;
       return normalizar(artista.nome + ' ' + artista.local + ' ' + artista.area).indexOf(termo) !== -1;
     }).sort(function (a, b) {
+      const destaqueA = a.destaque ? 1 : 0;
+      const destaqueB = b.destaque ? 1 : 0;
+      if (destaqueA !== destaqueB) return destaqueB - destaqueA;
       return a.nome.localeCompare(b.nome, 'pt-BR');
     });
 
