@@ -1487,4 +1487,19 @@ window.ARTISTAS = [
     obras: [],
     demo: false,
   },
+  {
+    id: 'aila',
+    nome: 'Aíla',
+    local: 'Pará — PA',
+    area: 'Música',
+    bio:
+      'Cantora paraense. A curadoria está completando a biografia e o repertório; ' +
+      'acompanhe seus lançamentos pelo Spotify.',
+    foto: '',
+    links: [
+      { rotulo: 'Spotify', url: 'https://open.spotify.com/artist/3OtIWdfvw95ikh5dpiNop3' },
+    ],
+    obras: [],
+    demo: false,
+  },
 ];
