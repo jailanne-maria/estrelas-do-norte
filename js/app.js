@@ -294,6 +294,7 @@
     el.iniciais.textContent = iniciais(artista.nome);
     el.fotoPlaceholder.style.setProperty('--cor-a', cor);
     el.fotoPlaceholder.style.setProperty('--cor-b', '#071126');
+    el.fotoPlaceholder.hidden = false;
 
     el.foto.hidden = true;
     el.foto.onload = null;
@@ -303,9 +304,11 @@
     if (artista.foto) {
       el.foto.onload = function () {
         el.foto.hidden = false;
+        el.fotoPlaceholder.hidden = true;
       };
       el.foto.onerror = function () {
         el.foto.hidden = true;
+        el.fotoPlaceholder.hidden = false;
       };
       el.foto.src = artista.foto;
     }

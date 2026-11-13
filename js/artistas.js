@@ -381,7 +381,7 @@ window.ARTISTAS = [
     bio:
       'Artista educadora que atua na interseção entre arte, educação e território. Desenvolve práticas de ' +
       'formação e criação com comunidades do Acre.',
-    foto: '',
+    foto: 'assets/artistas/jailanne-maria.jpg',
     links: [
       { rotulo: 'Instagram', url: 'https://www.instagram.com/maria.jai_/' },
     ],
@@ -1500,6 +1500,29 @@ window.ARTISTAS = [
       { rotulo: 'Spotify', url: 'https://open.spotify.com/artist/3OtIWdfvw95ikh5dpiNop3' },
     ],
     obras: [],
+    demo: false,
+  },
+  {
+    id: 'valeska',
+    nome: 'Valeska',
+    local: 'Rio Branco — AC',
+    area: 'Teatro',
+    bio:
+      'Valeska Alvim (Valeska Ribeiro) é professora e coordenadora do Grupo de Artes Cênicas Nóis da Casa, ' +
+      'projeto de extensão e pesquisa em teatro e dança contemporânea da Universidade Federal do Acre (UFAC), ' +
+      'fundado em 2009.',
+    foto: '',
+    links: [
+      { rotulo: 'Instagram', url: 'https://www.instagram.com/noisdacasa/' },
+    ],
+    obras: [
+      {
+        titulo: 'Nóis da Casa',
+        tecnica: 'Teatro e dança contemporânea',
+        descricao: 'Projeto de extensão e pesquisa da UFAC, fundado em 2009.',
+        cores: ['#c39bff', '#071126'],
+      },
+    ],
     demo: false,
   },
 ];
